@@ -53,6 +53,8 @@ body {
 .container {
 	display: grid;
 	grid-template-rows: 1fr auto 1fr;
+	align-items: center;
+	justify-content: center;
 }
 
 .main {
@@ -62,6 +64,7 @@ body {
 	flex-direction: row;
 	flex-wrap: wrap;
 	z-index: 1;
+	color: yellowgreen;
 }
 
 .mainsmall {
@@ -312,6 +315,14 @@ input[type=text] {
 	transition: .3s;
 }
 
+.quotebox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+}
+
+
 
 /* Container for the quote */
 #quote {
@@ -320,9 +331,10 @@ input[type=text] {
     padding: 20px;
     max-width: 600px;
     width: 90%;
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     text-align: center;
 	align-self: center;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Styling for the quote text */
@@ -351,11 +363,4 @@ input[type=text] {
     cursor: pointer;
     transform: scale(2);
     transition: transform 50s ease-in-out;
-}
-
-.search-results {
-	margin-top: 0px;
-	border: 0px solid #ccc;
-	height: 0px; /* Adjust as needed */
-	overflow: auto;
 }
