@@ -1,155 +1,238 @@
 <!DOCTYPE html>
 <html lang="us">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="icon" href="Icons/icons8-home-50.svg" />
+    <!-- <base target="_blank"> -->
+  </head>
 
-<head>
-	<title>Home</title>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="icon" href="Icons/icons8-home-50.svg">
-	<!-- <base target="_blank"> -->
-</head>
+  <body>
+    <div class="sidebar-wrapper">
+      <div class="sidebar">
+        <div class="buttons">
+          <input type="checkbox" id="chb_theme" />
+          <label class="btn_theme" for="chb_theme"></label>
+          <input type="checkbox" id="chb_header" />
+          <label class="btn_header" for="chb_header"></label>
+          <input type="checkbox" id="chb_menu" />
+          <label class="btn_menu" for="chb_menu"></label>
+        </div>
+        <div class="sidebar__settings">
+          <h3>Weather</h3>
+          <h4>API</h4>
+          <input
+            class="sidebar__input"
+            type="text"
+            placeholder="Enter key"
+            id="key"
+            autocomplete="off"
+          />
+          <h4>City</h4>
+          <input
+            class="sidebar__input"
+            type="text"
+            placeholder="Enter city"
+            id="city"
+          />
+          <div class="sidebar__radio">
+            <label class="control control-radio">
+              &deg;C
+              <input type="radio" name="temp_unit" id="celsius" />
+              <div class="control__indicator"></div>
+            </label>
+            <label class="control control-radio">
+              &deg;F
+              <input type="radio" name="temp_unit" id="fahrenheit" />
+              <div class="control__indicator"></div>
+            </label>
+          </div>
+          <button class="sidebar__button" id="weather_apply">Apply</button>
+        </div>
+        <div class="sidebar__settings">
+          <h3>Greeting</h3>
+          <h4>Name</h4>
+          <input
+            class="sidebar__input"
+            type="text"
+            id="greeting_name"
+            name="name_field"
+          />
+          <button class="sidebar__button" id="name_apply">Apply</button>
+        </div>
+        <div class="sidebar__settings">
+          <h3>Theme</h3>
+          <h4>Background</h4>
+          <input type="color" id="bg_input" />
+          <h4>Foreground</h4>
+          <input type="color" id="fg_input" />
+          <h4>Accent</h4>
+          <input type="color" id="accent_input" />
+          <div class="sidebar__button-container">
+            <button class="sidebar__button" id="color_apply">Apply</button>
+            <button class="sidebar__button" id="color_reset">Reset</button>
+          </div>
+        </div>
+        <!-- Popup form for adding custom links -->
+        <div id="link-form-popup" class="popup-form" style="display: none">
+          <h3>Add New Link</h3>
+		<input type="text" id="custom-link-url" placeholder="Enter URL" onfocus="document.querySelector('.search-form__input').disabled = true;" onblur="document.querySelector('.search-form__input').disabled = false;" />
+		<input type="text" id="custom-link-name" placeholder="Enter link name" onfocus="document.querySelector('.search-form__input').disabled = true;" onblur="document.querySelector('.search-form__input').disabled = false;" />
 
-<body>
-	<div class="sidebar-wrapper">
-		<div class="sidebar">
-			<div class="buttons">
-				<input type="checkbox" id="chb_theme">
-				<label class="btn_theme" for="chb_theme"></label>
-				<input type="checkbox" id="chb_header">
-				<label class="btn_header" for="chb_header"></label>
-				<input type="checkbox" id="chb_menu">
-				<label class="btn_menu" for="chb_menu"></label>
-			</div>
-			<div class="sidebar__settings">
-				<h3>Weather</h3>
-				<h4>API</h4>
-				<input class="sidebar__input" type="text" placeholder="Enter key" id="key" autocomplete="off">
-				<h4>City</h4>
-				<input class="sidebar__input" type="text" placeholder="Enter city" id="city">
-				<div class="sidebar__radio">
-					<label class="control control-radio">
-						&deg;C
-						<input type="radio" name="temp_unit" id="celsius">
-						<div class="control__indicator"></div>
-					</label>
-					<label class="control control-radio">
-						&deg;F
-						<input type="radio" name="temp_unit" id="fahrenheit">
-						<div class="control__indicator"></div>
-					</label>
-				</div>
-				<button class="sidebar__button" id="weather_apply">Apply</button>
-			</div>
-			<div class="sidebar__settings">
-				<h3>Greeting</h3>
-				<h4>Name</h4>
-				<input class="sidebar__input" type="text" id="greeting_name" name="name_field">
-				<button class="sidebar__button" id="name_apply">Apply</button>
-			</div>
-			<div class="sidebar__settings">
-				<h3>Theme</h3>
-				<h4>Background</h4>
-				<input type="color" id="bg_input">
-				<h4>Foreground</h4>
-				<input type="color" id="fg_input">
-				<h4>Accent</h4>
-				<input type="color" id="accent_input">
-				<div class="sidebar__button-container">
-					<button class="sidebar__button" id="color_apply">Apply</button>
-					<button class="sidebar__button" id="color_reset">Reset</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="header">
-			<h1 class="header__greeting">Howdy, <span class="header__greeting-name">Anon</span>.</h1>
-			<div class="header__weather">
-				<p id="header__weather-alert"></p>
-				<p id="header__weather-info"></p>
-			</div>
-			<form class="search-form" action="https://www.bing.com/" method="get" target="_self">
-				<input type="text" class="search-form__input" autocomplete="on" name="q">
-				<button type="submit" class="search-form__button">
-					<i class="fa fa-search"></i>
-				</button>
-			</form>
-		</div>
-		<div class="main">
-			<a href="https://mail.google.com/mail/ca/u/1/#inbox">
-				<img src="Icons/icons8-gmail-50.svg" style="width: 48px; height: 48px;">
-			</a>
-			<a href="https://www.youtube.com/">
-				<img src="Icons/icons8-youtube-50.svg" style="width: 48px; height: 48px;">
-			</a>
-			<a href="https://web.whatsapp.com/">
-				<img src="Icons/icons8-whatsapp-50.svg" style="width: 48px; height: 48px;">
-			</a>
-			<a href="https://github.com/">
-				<img src="Icons/icons8-github-50.svg" style="width: 48px; height: 48px;">
-			</a>
-			<a href="https://www.linkedin.com/">
-				<img src="Icons/icons8-linkedin-50.svg" style="width: 48px; height: 48px;">
-			</a>
-			<a href="https://chat.openai.com/chat">
-				<img src="Icons/icons8-chatgpt-50.svg" style="width: 48px; height: 48px;">
-			</a>
-		</div>
-		<div class="mainsmall" style="width: 1000px;">
-			<a href="https://www.coursera.org/">
-				<img src="Icons/coursera.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://www.edx.org/">
-				<img src="Icons/edx-logo-elm.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://git.rwth-aachen.de/umerghafoor">
-				<img src="Icons/gitlab.png" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://www.researchgate.net/">
-				<img src="Icons/researchgate.png" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://www.instapaper.com/u">
-				<img src="Icons/instapaper.png" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://mail.google.com/mail/ca/u/0/#inbox">
-				<img src="Icons/icons8-gmail-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://calendar.google.com/">
-				<img src="Icons/icons8-google-calendar-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://docs.google.com/">
-				<img src="Icons/icons8-google-docs-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://drive.google.com/">
-				<img src="Icons/icons8-google-drive-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://keep.google.com/">
-				<img src="Icons/icons8-google-keep-new-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://meet.google.com/landing?authuser=1">
-				<img src="Icons/icons8-google-meet-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://photos.google.com/">
-				<img src="Icons/icons8-google-photos-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://music.youtube.com/">
-				<img src="Icons/icons8-youtube-music-50.svg" style="width: 24px; height: 24px;">
-			</a>
-			<a href="https://wakatime.com/dashboard">
-				<img src="Icons/wakatime.png" style="width: 24px; height: 24px;">
-			</a>
-		</div>
-		<div class="quotebox">
-			<div id="quote" class="quote">Loading...</div>
-		</div>
-	</div>
-	<script src="js/quotes.js"></script>
-	<script src="js/theme.js"></script>
-	<script src="js/greeting.js"></script>
-	<script src="js/weather.js"></script>
-	<script src="js/menu.js"></script>
-	<script src="js/header.js"></script>
-
-</body>
-
+          <button id="add-custom-link">Add Link</button>
+          <button id="close-link-form">Cancel</button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="header">
+        <h1 class="header__greeting">
+          Umer, <span class="header__greeting-name">Ghafoor</span>.
+        </h1>
+        <div class="header__weather">
+          <p id="header__weather-alert"></p>
+          <p id="header__weather-info"></p>
+        </div>
+        <form
+          class="search-form"
+          action="https://www.bing.com/"
+          method="get"
+          target="_self"
+        >
+          <input
+            type="text"
+            class="search-form__input"
+            autocomplete="on"
+            name="q"
+          />
+          <button type="submit" class="search-form__button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+      <div class="main">
+        <a href="https://mail.google.com/mail/ca/u/1/#inbox">
+          <img
+            src="Icons/icons8-gmail-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+        <a href="https://www.youtube.com/">
+          <img
+            src="Icons/icons8-youtube-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+        <a href="https://web.whatsapp.com/">
+          <img
+            src="Icons/icons8-whatsapp-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+        <a href="https://github.com/">
+          <img
+            src="Icons/icons8-github-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+        <a href="https://www.linkedin.com/">
+          <img
+            src="Icons/icons8-linkedin-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+        <a href="https://chat.openai.com/chat">
+          <img
+            src="Icons/icons8-chatgpt-50.svg"
+            style="width: 48px; height: 48px"
+          />
+        </a>
+      </div>
+      <div class="mainsmall" style="width: 1000px">
+        <a href="https://www.coursera.org/">
+          <img src="Icons/coursera.svg" style="width: 24px; height: 24px" />
+        </a>
+        <a href="https://www.edx.org/">
+          <img src="Icons/edx-logo-elm.svg" style="width: 24px; height: 24px" />
+        </a>
+        <a href="https://git.rwth-aachen.de/umerghafoor">
+          <img src="Icons/gitlab.png" style="width: 24px; height: 24px" />
+        </a>
+        <a href="https://www.researchgate.net/">
+          <img src="Icons/researchgate.png" style="width: 24px; height: 24px" />
+        </a>
+        <a href="https://www.instapaper.com/u">
+          <img src="Icons/instapaper.png" style="width: 24px; height: 24px" />
+        </a>
+        <a href="https://mail.google.com/mail/ca/u/0/#inbox">
+          <img
+            src="Icons/icons8-gmail-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://calendar.google.com/">
+          <img
+            src="Icons/icons8-google-calendar-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://docs.google.com/">
+          <img
+            src="Icons/icons8-google-docs-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://drive.google.com/">
+          <img
+            src="Icons/icons8-google-drive-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://keep.google.com/">
+          <img
+            src="Icons/icons8-google-keep-new-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://meet.google.com/landing?authuser=1">
+          <img
+            src="Icons/icons8-google-meet-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://photos.google.com/">
+          <img
+            src="Icons/icons8-google-photos-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://music.youtube.com/">
+          <img
+            src="Icons/icons8-youtube-music-50.svg"
+            style="width: 24px; height: 24px"
+          />
+        </a>
+        <a href="https://wakatime.com/dashboard">
+          <img src="Icons/wakatime.png" style="width: 24px; height: 24px" />
+        </a>
+      </div>
+      <div class="link-box">
+        <div class="dynamic-links-menu">
+          <!-- Dynamic links will be injected here -->
+        </div>
+        <button id="open-link-form" class="open-link-form-button">+</button>
+      </div>
+      <div class="quotebox">
+        <div id="quote" class="quote">Loading...</div>
+      </div>
+    </div>
+    <script src="js/quotes.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/greeting.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/dynamiclinks.js"></script>
+  </body>
 </html>

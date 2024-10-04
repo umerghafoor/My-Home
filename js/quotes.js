@@ -145,4 +145,4 @@ function displayRandomQuote() {
     };
 }
 
-window.onload = displayRandomQuote;
+displayRandomQuote();
