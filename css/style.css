@@ -23,15 +23,15 @@
   --boxbackground: #f5f5f5;
 
   --search-pill-bg: #ffffff;
-  --search-pill-shadow: rgba(0,0,0,0.12);
-  --search-pill-shadow-expanded: rgba(0,0,0,0.18);
+  --search-pill-shadow: rgba(0,0,0,0);
+  --search-pill-shadow-expanded: rgba(0,0,0,0);
   --search-input-color: #202124;
   --search-placeholder: #9aa0a6;
   --search-icon-color: #5e81ac;
   --search-icon-active: #1a73e8;
   --search-clear-hover: rgba(0,0,0,0.06);
   --search-clear-color: #5f6368;
-  --engine-pill-bg: #ffffff;
+  --engine-pill-bg: #ffffff34;
   --engine-pill-border: #c5cae9;
   --engine-pill-border-hover: #90a4ae;
   --engine-pill-color: #5f6368;
@@ -237,7 +237,7 @@ a {
   box-shadow: 0 1px 4px var(--search-pill-shadow);
 
   /* Collapsed = icon-only */
-  width: 48px;
+  width: 128px;
 
   /* Spring bounce on expand */
   transition:
@@ -353,10 +353,22 @@ a {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px var(--submit-shadow);
+  display: none;
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
   transition:
     background 0.2s ease,
     transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.search-wrapper.search-mode .search-submit-btn {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
 }
 
 .search-submit-btn svg {
@@ -468,17 +480,17 @@ a {
   justify-content: center;
   gap: 6px;
   flex-wrap: wrap;
-  padding: 10px 0 0;
-  width: 100%;
+  padding: 0px 0 0;
+  /* width: 100%; */
 }
 
 .engine-pill {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 5px 13px 5px 8px;
+  padding: 8px 8px 8px 8px;
   border-radius: 20px;
-  border: 1.5px solid var(--engine-pill-border);
+  border: 0px solid var(--engine-pill-border);
   background: var(--engine-pill-bg);
   cursor: pointer;
   color: var(--engine-pill-color);
@@ -507,8 +519,8 @@ a {
 }
 
 .engine-pill img {
-  width: 14px;
-  height: 14px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   border-radius: 2px;
   opacity: 0.45;
@@ -518,6 +530,22 @@ a {
 .engine-pill.active img,
 .engine-pill:hover img {
   opacity: 1;
+}
+
+.search-wrapper.search-mode .engine-row .engine-pill {
+  display: none;
+}
+
+.search-wrapper.search-mode .engine-row .engine-pill.active {
+  display: flex;
+}
+
+.search-wrapper.delay-engine-reveal .engine-row .engine-pill {
+  display: none;
+}
+
+.search-wrapper.delay-engine-reveal .engine-row .engine-pill.active {
+  display: flex;
 }
 
 /* ═══════════════════════════════════════════

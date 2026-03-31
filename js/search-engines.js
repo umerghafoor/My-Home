@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let suggestionData = [];
   let suggestionRequestId = 0;
   let suggestionTimer = null;
+  let engineRevealTimer = null;
 
   // ─── DOM refs ────────────────────────────────────────────────────────────
   const searchForm       = document.getElementById('searchForm');
@@ -54,6 +55,37 @@ document.addEventListener('DOMContentLoaded', function () {
   const engineRow        = document.getElementById('engineRow');
   const searchPill       = document.getElementById('searchPill') || searchTrack;
   const pillIcon         = document.getElementById('pillIcon') || (searchTrack ? searchTrack.querySelector('.search-icon') : null);
+  const searchWrapper    = document.querySelector('.search-wrapper');
+
+  function updateSearchModeUI (immediate = false) {
+    if (!searchWrapper || !searchPill) return;
+    const inSearchMode = searchPill.classList.contains('expanded');
+
+    if (engineRevealTimer) {
+      clearTimeout(engineRevealTimer);
+      engineRevealTimer = null;
+    }
+
+    if (inSearchMode) {
+      searchWrapper.classList.add('search-mode');
+      searchWrapper.classList.remove('delay-engine-reveal');
+      return;
+    }
+
+    searchWrapper.classList.remove('search-mode');
+
+    if (immediate) {
+      searchWrapper.classList.remove('delay-engine-reveal');
+      return;
+    }
+
+    // Match the search-pill collapse transition (~450ms) before showing all engine icons.
+    searchWrapper.classList.add('delay-engine-reveal');
+    engineRevealTimer = setTimeout(() => {
+      searchWrapper.classList.remove('delay-engine-reveal');
+      engineRevealTimer = null;
+    }, 470);
+  }
 
   // ─── Build engine pills ──────────────────────────────────────────────────
   function buildEnginePills () {
@@ -70,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
       img.onerror = () => { img.style.display = 'none'; };
 
       pill.appendChild(img);
-      pill.appendChild(document.createTextNode(engine.name));
+      // pill.appendChild(document.createTextNode(engine.name));
 
       pill.addEventListener('click', () => {
         setEngine(engine);
@@ -94,6 +126,8 @@ document.addEventListener('DOMContentLoaded', function () {
     engineRow.querySelectorAll('.engine-pill').forEach(pill => {
       pill.classList.toggle('active', pill.getAttribute('data-engine') === engine.name);
     });
+
+    updateSearchModeUI();
   }
 
   // ─── Restore saved engine ────────────────────────────────────────────────
@@ -345,6 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
       searchPill.classList.add('expanded');
       searchPill.classList.add('focused');
     }
+    updateSearchModeUI();
   }
 
   function collapse () {
@@ -352,6 +387,7 @@ document.addEventListener('DOMContentLoaded', function () {
       searchPill.classList.remove('expanded');
       searchPill.classList.remove('focused');
     }
+    updateSearchModeUI();
   }
 
   if (pillIcon) {
@@ -459,6 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
   buildEnginePills();
   restoreSavedEngine();
   updateButtons();
+  updateSearchModeUI(true);
 
   // Auto-focus after a short delay
   setTimeout(() => {
