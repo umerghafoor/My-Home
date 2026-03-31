@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
   let suggestionData = [];
   let suggestionRequestId = 0;
   let suggestionTimer = null;
-  let engineRevealTimer = null;
+  let engineRevealAnimationTimer = null;
 
   // ─── DOM refs ────────────────────────────────────────────────────────────
   const searchForm       = document.getElementById('searchForm');
@@ -61,29 +61,29 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!searchWrapper || !searchPill) return;
     const inSearchMode = searchPill.classList.contains('expanded');
 
-    if (engineRevealTimer) {
-      clearTimeout(engineRevealTimer);
-      engineRevealTimer = null;
+    if (engineRevealAnimationTimer) {
+      clearTimeout(engineRevealAnimationTimer);
+      engineRevealAnimationTimer = null;
     }
 
     if (inSearchMode) {
       searchWrapper.classList.add('search-mode');
-      searchWrapper.classList.remove('delay-engine-reveal');
+      searchWrapper.classList.remove('animate-engine-reveal');
       return;
     }
 
     searchWrapper.classList.remove('search-mode');
 
     if (immediate) {
-      searchWrapper.classList.remove('delay-engine-reveal');
+      searchWrapper.classList.remove('animate-engine-reveal');
       return;
     }
 
-    // Match the search-pill collapse transition (~450ms) before showing all engine icons.
-    searchWrapper.classList.add('delay-engine-reveal');
-    engineRevealTimer = setTimeout(() => {
-      searchWrapper.classList.remove('delay-engine-reveal');
-      engineRevealTimer = null;
+    // Start icon reveal as soon as collapse starts.
+    searchWrapper.classList.add('animate-engine-reveal');
+    engineRevealAnimationTimer = setTimeout(() => {
+      searchWrapper.classList.remove('animate-engine-reveal');
+      engineRevealAnimationTimer = null;
     }, 470);
   }
 
