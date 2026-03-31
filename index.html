@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="icon" href="Icons/icons8-home-50.svg" />
-    <!-- <base target="_blank"> -->
   </head>
 
   <body>
@@ -22,20 +21,9 @@
         <div class="sidebar__settings">
           <h3>Weather</h3>
           <h4>API</h4>
-          <input
-            class="sidebar__input"
-            type="text"
-            placeholder="Enter key"
-            id="key"
-            autocomplete="off"
-          />
+          <input class="sidebar__input" type="text" placeholder="Enter key" id="key" autocomplete="off" />
           <h4>City</h4>
-          <input
-            class="sidebar__input"
-            type="text"
-            placeholder="Enter city"
-            id="city"
-          />
+          <input class="sidebar__input" type="text" placeholder="Enter city" id="city" />
           <div class="sidebar__radio">
             <label class="control control-radio">
               &deg;C
@@ -53,12 +41,7 @@
         <div class="sidebar__settings">
           <h3>Greeting</h3>
           <h4>Name</h4>
-          <input
-            class="sidebar__input"
-            type="text"
-            id="greeting_name"
-            name="name_field"
-          />
+          <input class="sidebar__input" type="text" id="greeting_name" name="name_field" />
           <button class="sidebar__button" id="name_apply">Apply</button>
         </div>
         <div class="sidebar__settings">
@@ -77,24 +60,29 @@
         <!-- Popup form for adding custom links -->
         <div id="link-form-popup" class="popup-form" style="display: none">
           <h3>Add New Link</h3>
-		  <input type="text" id="custom-link-url" placeholder="Enter URL" onfocus="document.querySelector('.search-form__input').disabled = true;" onblur="document.querySelector('.search-form__input').disabled = false;" />
-		  <input type="text" id="custom-link-name" placeholder="Enter link name" onfocus="document.querySelector('.search-form__input').disabled = true;" onblur="document.querySelector('.search-form__input').disabled = false;" />
-		  <input type="text" id="custom-link-icon" placeholder="Icon path (optional)" onfocus="document.querySelector('.search-form__input').disabled = true;" onblur="document.querySelector('.search-form__input').disabled = false;" />
-  
-		  <div class="file-input-container">
-			<label for="import-file" class="file-input-button">Import Links from File</label>
-			<input type="file" id="import-file" class="file-input" accept=".json" />
-			<div id="file-name" class="file-name"></div>
-		  </div>
-  
-		  <div class="import-export-buttons">
-			<button id="export-links">Export Links</button>
-			<button id="add-custom-link">Add Link</button>
-			<button id="close-link-form">Cancel</button>
-		  </div>
+          <input type="text" id="custom-link-url" placeholder="Enter URL"
+            onfocus="document.getElementById('searchInput').disabled=true;"
+            onblur="document.getElementById('searchInput').disabled=false;" />
+          <input type="text" id="custom-link-name" placeholder="Enter link name"
+            onfocus="document.getElementById('searchInput').disabled=true;"
+            onblur="document.getElementById('searchInput').disabled=false;" />
+          <input type="text" id="custom-link-icon" placeholder="Icon path (optional)"
+            onfocus="document.getElementById('searchInput').disabled=true;"
+            onblur="document.getElementById('searchInput').disabled=false;" />
+          <div class="file-input-container">
+            <label for="import-file" class="file-input-button">Import Links from File</label>
+            <input type="file" id="import-file" class="file-input" accept=".json" />
+            <div id="file-name" class="file-name"></div>
+          </div>
+          <div class="import-export-buttons">
+            <button id="export-links">Export Links</button>
+            <button id="add-custom-link">Add Link</button>
+            <button id="close-link-form">Cancel</button>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="container">
       <div class="header">
         <h1 class="header__greeting">
@@ -105,166 +93,129 @@
           <p id="header__weather-info"></p>
         </div>
       </div>
-      
-      <!-- Enhanced Search Bar -->
-      <div class="search-container">
-        <form class="search-form" action="https://www.google.com/search" method="get" target="_self">
-          <div class="search-input-container">
-            <input type="text" class="search-form__input" autocomplete="on" name="q" placeholder="Search the web..." />
+
+      <!-- ── Material Expressive Search ── -->
+      <div class="search-wrapper">
+
+        <!-- Row: bouncing pill + round submit -->
+        <div class="search-row">
+
+          <form id="searchForm" action="https://www.google.com/search" method="get" target="_self"
+                style="display:contents;">
+
+            <!-- Collapsible pill -->
+            <div class="search-pill" id="searchPill">
+
+              <!-- Click-to-expand icon -->
+              <div class="search-pill-icon" id="pillIcon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="7"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </div>
+
+              <input
+                type="text"
+                class="search-input"
+                id="searchInput"
+                name="q"
+                autocomplete="off"
+                placeholder="Search the web..."
+              />
+
+              <!-- Clear × -->
+              <button type="button" class="search-clear-btn" id="clearBtn" title="Clear">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="2.5" stroke-linecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/>
+                  <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+              </button>
+
+            </div>
+
+            <!-- Always-visible round submit -->
+            <button type="submit" class="search-submit-btn" id="submitBtn" title="Search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="7"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+            </button>
+
+          </form>
+        </div>
+
+        <!-- Suggestions Dropdown -->
+        <div class="suggestions-box" id="suggestionsBox">
+          <div class="suggestions-list" id="suggestionsList"></div>
+          <div class="suggestions-hint">
+            <span><kbd>↑↓</kbd> navigate</span>
+            <span><kbd>↵</kbd> search</span>
+            <span><kbd>Esc</kbd> close</span>
           </div>
-          <div class="search-engines">
-            <!-- Search engine buttons will be added by JavaScript -->
-          </div>
-        </form>
+        </div>
+
+        <!-- Engine pills below the row -->
+        <div class="engine-row" id="engineRow"></div>
+
       </div>
-      
+      <!-- ── end search ── -->
+
       <div class="main">
         <a href="https://mail.google.com/mail/ca/u/0/#inbox">
-          <img
-            src="Icons/icons8-gmail-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-gmail-50.svg" style="width:48px;height:48px" /></a>
         <a href="https://www.youtube.com/">
-          <img
-            src="Icons/icons8-youtube-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-youtube-50.svg" style="width:48px;height:48px" /></a>
         <a href="https://web.whatsapp.com/">
-          <img
-            src="Icons/icons8-whatsapp-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-whatsapp-50.svg" style="width:48px;height:48px" /></a>
         <a href="https://github.com/">
-          <img
-            src="Icons/icons8-github-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-github-50.svg" style="width:48px;height:48px" /></a>
         <a href="https://www.linkedin.com/">
-          <img
-            src="Icons/icons8-linkedin-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-linkedin-50.svg" style="width:48px;height:48px" /></a>
         <a href="https://chat.openai.com/chat">
-          <img
-            src="Icons/icons8-chatgpt-50.svg"
-            style="width: 48px; height: 48px"
-          />
-        </a>
+          <img src="Icons/icons8-chatgpt-50.svg" style="width:48px;height:48px" /></a>
       </div>
-      <div class="mainsmall" style="width: 1000px">
-        <a href="https://www.coursera.org/">
-          <img src="Icons/coursera.svg" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.edx.org/">
-          <img src="Icons/edx-logo-elm.svg" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://git.rwth-aachen.de/umerghafoor">
-          <img src="Icons/gitlab.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.instapaper.com/u">
-          <img src="Icons/instapaper.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://mail.google.com/mail/ca/u/1/#inbox">
-          <img
-            src="Icons/icons8-gmail-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://calendar.google.com/">
-          <img
-            src="Icons/icons8-google-calendar-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://docs.google.com/">
-          <img
-            src="Icons/icons8-google-docs-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://drive.google.com/">
-          <img
-            src="Icons/icons8-google-drive-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://keep.google.com/">
-          <img
-            src="Icons/icons8-google-keep-new-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://meet.google.com/landing?authuser=1">
-          <img
-            src="Icons/icons8-google-meet-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://photos.google.com/">
-          <img
-            src="Icons/icons8-google-photos-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://music.youtube.com/">
-          <img
-            src="Icons/icons8-youtube-music-50.svg"
-            style="width: 24px; height: 24px"
-          />
-        </a>
-        <a href="https://tasksboard.com/app/">
-          <img src="Icons/Google Tasks.svg" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://wakatime.com/dashboard">
-          <img src="Icons/wakatime.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://scholar.google.com/">
-          <img src="Icons/Google Scholar.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.researchgate.net/">
-          <img src="Icons/researchgate.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.sci-hub.st/" target="_blank">
-          <img src="Icons/ravenround_hs.gif" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.connectedpapers.com/">
-          <img src="Icons/2dcb1-www.connectedpapers.com.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://researchrabbitapp.com/home">
-          <img src="Icons/researchrabbit.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://www.notion.so/3a0e5e47f2384191bfb320f4482a2b89">
-          <img src="Icons/notion-logo.svg" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://claude.ai/new">
-          <img src="Icons/claude.png" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://app.milanote.com/1PRlK61qDN2w3q/home">
-          <img src="Icons/Milanote.svg" style="width: 24px; height: 24px" />
-        </a>
-        <a href="https://login.tailscale.com/admin/machines">
-          <img src="Icons/tailscale.png" style="width: 24px; height: 24px" />
-        </a>
-        <!-- For Adding more links create <a></a> here -->
+
+      <div class="mainsmall" style="width:1000px">
+        <a href="https://www.coursera.org/"><img src="Icons/coursera.svg" style="width:24px;height:24px" /></a>
+        <a href="https://www.edx.org/"><img src="Icons/edx-logo-elm.svg" style="width:24px;height:24px" /></a>
+        <a href="https://git.rwth-aachen.de/umerghafoor"><img src="Icons/gitlab.png" style="width:24px;height:24px" /></a>
+        <a href="https://www.instapaper.com/u"><img src="Icons/instapaper.png" style="width:24px;height:24px" /></a>
+        <a href="https://mail.google.com/mail/ca/u/1/#inbox"><img src="Icons/icons8-gmail-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://calendar.google.com/"><img src="Icons/icons8-google-calendar-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://docs.google.com/"><img src="Icons/icons8-google-docs-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://drive.google.com/"><img src="Icons/icons8-google-drive-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://keep.google.com/"><img src="Icons/icons8-google-keep-new-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://meet.google.com/landing?authuser=1"><img src="Icons/icons8-google-meet-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://photos.google.com/"><img src="Icons/icons8-google-photos-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://music.youtube.com/"><img src="Icons/icons8-youtube-music-50.svg" style="width:24px;height:24px" /></a>
+        <a href="https://tasksboard.com/app/"><img src="Icons/Google Tasks.svg" style="width:24px;height:24px" /></a>
+        <a href="https://wakatime.com/dashboard"><img src="Icons/wakatime.png" style="width:24px;height:24px" /></a>
+        <a href="https://scholar.google.com/"><img src="Icons/Google Scholar.png" style="width:24px;height:24px" /></a>
+        <a href="https://www.researchgate.net/"><img src="Icons/researchgate.png" style="width:24px;height:24px" /></a>
+        <a href="https://www.sci-hub.st/" target="_blank"><img src="Icons/ravenround_hs.gif" style="width:24px;height:24px" /></a>
+        <a href="https://www.connectedpapers.com/"><img src="Icons/2dcb1-www.connectedpapers.com.png" style="width:24px;height:24px" /></a>
+        <a href="https://researchrabbitapp.com/home"><img src="Icons/researchrabbit.png" style="width:24px;height:24px" /></a>
+        <a href="https://www.notion.so/3a0e5e47f2384191bfb320f4482a2b89"><img src="Icons/notion-logo.svg" style="width:24px;height:24px" /></a>
+        <a href="https://claude.ai/new"><img src="Icons/claude.png" style="width:24px;height:24px" /></a>
+        <a href="https://app.milanote.com/1PRlK61qDN2w3q/home"><img src="Icons/Milanote.svg" style="width:24px;height:24px" /></a>
+        <a href="https://login.tailscale.com/admin/machines"><img src="Icons/tailscale.png" style="width:24px;height:24px" /></a>
       </div>
 
       <div class="box-parent">
         <div class="link-box">
-          <div class="dynamic-links-menu">
-            <!-- Dynamic links will be injected here -->
-          </div>
+          <div class="dynamic-links-menu"></div>
           <button id="open-link-form" class="open-link-form-button">+</button>
         </div>
       </div>
+
       <div class="quotebox">
         <div id="quote" class="quote">Loading...</div>
       </div>
     </div>
+
     <script src="js/quotes.js"></script>
     <script src="js/theme.js"></script>
     <script src="js/greeting.js"></script>
