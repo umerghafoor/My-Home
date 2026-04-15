@@ -497,9 +497,25 @@ document.addEventListener('DOMContentLoaded', function () {
   updateButtons();
   updateSearchModeUI(true);
 
-  // Auto-focus after a short delay
-  setTimeout(() => {
-    searchInput.focus();
-  }, 400);
+  // Auto-focus immediately without delay so we don't miss first keystrokes
+  searchInput.focus();
+
+  // If focus is lost and user starts typing randomly, focus back to search bar 
+  // (unless they are typing in another input like settings)
+  document.addEventListener('keydown', e => {
+    // Ignore keyboard shortcuts with modifiers
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    
+    // Ignore if they are already typing in an input or textarea (like settings or custom links)
+    const target = e.target;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
+      return;
+    }
+    
+    // If it's a printable character or backspace, redirect focus to search
+    if (e.key.length === 1 || e.key === 'Backspace') {
+      searchInput.focus();
+    }
+  });
 
 });
